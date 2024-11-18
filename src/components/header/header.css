@@ -1,0 +1,77 @@
+header {
+    color: blue;
+    padding-left: 165px;
+    padding-right: 140px;
+    padding-bottom: 22px;
+}
+
+.header_row {
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    width: 1110px;
+    height: 60px;
+}
+.header_logo {
+    color: #101010;
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 30.48px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    text-transform: uppercase;
+
+}
+.header_nav ul {
+    display: flex;
+    column-gap: 45px;
+    align-items: center;
+}
+.like_cion {
+    background-image: url('../../img/icons/like_con.png');
+    width: 23px;
+    height: 20px;
+}
+.cart_cion {
+    background-image: url('../../img/icons/cart_icon.png');
+    width: 24px;
+    height: 24px;
+}
+
+
+
+.quick_search {
+    display: flex;
+    text-align: center;
+    /* column-gap: 15px; */
+    margin-right: 600px;
+    width: 255px;
+    height: 21px;
+    color: #101010;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18.29px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+}
+.phone_icon {
+    background-image: url('../../img/icons/phone_icon.png');
+    width: 15px;
+    height: 21px;
+    margin-right: 15px;
+}
+.quick_search__icon {
+    background-image: url('../../img/icons/quick_search__icon.png');
+    width: 8px;
+    height: 5px;
+    margin-top: 7px;
+    margin-left: 5px;
+}
