@@ -1,9 +1,9 @@
-header {
+/* header {
     color: blue;
     padding-left: 165px;
     padding-right: 140px;
     padding-bottom: 22px;
-}
+} */
 
 .header_row {
     display: flex;
@@ -25,7 +25,9 @@ header {
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     text-transform: uppercase;
-
+}
+.header_logo:hover {
+    opacity: 0.5;
 }
 .header_nav ul {
     display: flex;

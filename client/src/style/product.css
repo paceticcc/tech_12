@@ -1,0 +1,31 @@
+.product_field {
+    width: 1110px;
+}
+.product_title {
+    display: flex;
+    margin-top: 14px;
+    margin-bottom: 20px;
+
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.38px;  
+    width: 326.99px;
+    height: 24px;
+    color: #838383; 
+}
+.product_img_filed {
+    margin-top: 20px;
+    width: 1110px;
+    height: auto;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.product_img {
+    display: flex;
+    margin: 0 auto;
+}
