@@ -1,0 +1,80 @@
+.basket_field {
+    margin: 0 auto;
+    padding-bottom: 106px;
+    /* height: 691px; */
+    width: 1110px;
+    /* display: flex;
+    justify-content: space-between; */
+
+    /* flex-wrap: wrap; */
+}
+.basket_ul {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 30px;
+    row-gap: 30px;
+
+    flex-wrap: wrap;
+
+}
+.basket_title {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.38px;
+    color: #1C1C27;
+
+    padding-top: 29px;
+    padding-bottom: 13px;
+    
+}
+
+.basketfree_img {
+    display: flex;
+    margin: 0 auto;
+    width: 409.88px;
+    height: 315px;  
+    padding-bottom: 30px; 
+}
+.basketfree_title {
+    display: flex;
+    justify-content: space-around;
+    /* margin: 0 auto; */
+    font-family: Montserrat;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36.57px;
+}
+.basketfree_subtitle{
+    display: flex;
+    justify-content: space-around;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.38px;
+    color: #838383;
+}
+.basketfree_button {
+    display: flex;
+    justify-content: space-around;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+    font-family: Montserrat;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 600;
+
+    width: 540px;
+    height: 65px;
+    line-height: 65px;
+    border-radius: 20px;
+    background-color: black;
+
+    margin-top: 30px;
+}
+.basketfree_button:hover {
+    opacity: 0.5;
+}

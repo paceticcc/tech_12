@@ -12,7 +12,6 @@
     
     display: flex;
     text-align: center;
-    /* justify-content: space-between; */
 }
 .promo_text__title {
     font-family: Montserrat;
@@ -31,8 +30,6 @@
     height: 74px;
 }
 .promo_image {
-    /* width: 321px;
-    height: 226px; */
     top: 53px;
     left: 791px;
     gap: 0px;
