@@ -10,13 +10,69 @@
 }
 .basket_ul {
     display: flex;
-    justify-content: space-between;
-    column-gap: 30px;
+    /* justify-content: space-between; */
+
+    column-gap: 90px;
     row-gap: 30px;
 
     flex-wrap: wrap;
+    
 
 }
+
+.basket_ul_info{
+    width: 300px;
+    height: 410px;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    position: relative;
+    text-decoration: none;
+
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+
+}
+
+
+.go_to_product_info {
+    opacity: 0;
+    background-color: #FF97BB;
+    border-radius: 30px 30px 30px 30px;
+    width: 300px;
+    height: 370px;
+    position: absolute;
+    top: 0;
+    text-align: center;  
+}
+
+ .go_to_product_info div{
+    margin: auto;
+    line-height: 370px;
+
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1C1C27;
+
+ }
+.go_to_product_info:hover{
+    opacity: 0.8;
+}
+
+
+.basket_ul_info_position {
+    margin: 0 auto;
+    margin-top: 20px;
+    row-gap: 10px;
+    /* margin-left: 20px; */
+}
+/* .basket_ul_info_position :not(.buy_botton){
+    margin-top: 20px;
+    margin-left: 20px;
+} */
+
+
 .basket_title {
     font-family: Montserrat;
     font-size: 20px;
@@ -78,3 +134,27 @@
 .basketfree_button:hover {
     opacity: 0.5;
 }
+
+
+
+.buy_botton{
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    left: 100px;
+    right: 100px;
+}
+.buy_botton :hover{
+    /* border: #1C1C27;
+    border-style: double; */
+    opacity: 0;
+}
+
+/* .one {
+    position: absolute;
+    bottom: 0.1;
+}
+.two {
+    position: absolute;
+    bottom: 0.1;
+} */

@@ -4,6 +4,9 @@
     padding-right: 140px;
     padding-bottom: 22px;
 } */
+ /* .header {
+    position: fixed;
+ } */
 
 .header_row {
     display: flex;
