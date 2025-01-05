@@ -1,0 +1,19 @@
+/* AdminMenu.css */
+.admin-menu {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.admin-menu__link {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.admin-menu__link:hover {
+    text-decoration: underline;
+}

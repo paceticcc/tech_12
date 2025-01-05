@@ -13,7 +13,7 @@
 
 /* Links */
 
-a, a:link, a:visited  {
+a, h1, h2, h3, a:link, a:visited  {
     text-decoration: none;
 }
 

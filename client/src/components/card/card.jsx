@@ -16,7 +16,7 @@ function Card(props) {
         <section className='card'>
             <div className="container">
                 <NavLink to={`/product/${props.id}`} className='card_link'>
-                    <img className='card_image' src={props.img} alt="" />
+                    <img className='card_image' src={`http://localhost:5000/${props.img}`} /> {/* Изображение загружается с сервера */}
                 </NavLink>
                 <div className="card_body">
                     <NavLink to={`/product/${props.id}`} className="card_text">
@@ -32,7 +32,7 @@ function Card(props) {
                         <div className="card_raiting">Рейтинг {props.raiting}</div>
                     </div>
                     <button onClick={handleAddToBasket} className="add_to_basket_button">
-                        <img className='card_image_raiting' src={baskettake} alt="" />
+                        <img className='card_image_raiting' src={props.imgbuy} alt="" />
                         {/* Добавить в корзину */}
                     </button>
                 </div>

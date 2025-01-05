@@ -1,5 +1,13 @@
+/* .container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+} */
 .product_field {
     width: 1110px;
+    display: flex;
+    /* justify-content: space-between; */
+    column-gap: 50px;
 }
 .product_title {
     display: flex;
@@ -16,16 +24,95 @@
 }
 .product_img_filed {
     margin-top: 20px;
-    width: 1110px;
     height: auto;
     border-radius: 30px;
     background-color: #FFFFFF;
+    background-size: cover;
+    background-repeat: no-repeat;
 
     display: flex;
     justify-content: space-between;
+
+    max-width: 700px;
+    max-height: 250px;
+    /* width: 500px;
+    height: 500px; */
 }
 
 .product_img {
     display: flex;
     margin: 0 auto;
+}
+/* .add_to_basket_button {
+    background-image: url('../img/icons/cart_icon.png');
+} */
+
+.product_info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+    width: 500px;
+    height: 500px;
+    border-radius: 30px;
+}
+/* .product_price {
+    padding-top: 20px;
+    padding-left: 20px;
+} */
+.product_info_poisition{
+    padding-top: 20px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.add_to_basket_button {
+    max-width: 50px;
+    max-height: 50px;
+}
+.add_to_basket_button:hover{
+    opacity: 8%;
+}
+.add_comment {
+    width: 300px;
+    height: 350px;
+    background-color:bisque;
+    border-radius: 30px;
+}
+.comment_text {
+    margin-top: 20px;
+    margin-left: 20px;
+
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.38px;  
+    width: 326.99px;
+    height: 24px;
+    color: #000; 
+
+    opacity: 0.5;
+}
+
+.pepole_comment {
+    width: 770px;
+    height: 250px;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.people_comment_block {
+    margin-top: 20px;
+    margin-left: 20px;
+
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.38px;  
+    width: 326.99px;
+    height: 24px;
+    color: #000; 
+
+    opacity: 0.5;
 }
