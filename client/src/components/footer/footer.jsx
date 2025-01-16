@@ -1,5 +1,5 @@
 import './footer.css';
-import worldiconFooter from './../../img/icons/raiting_icon.png'
+import worldiconFooter from './../../img/icons/world_icon.png'
 
 import { NavLink } from 'react-router-dom';
 

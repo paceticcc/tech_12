@@ -1,40 +1,41 @@
-/* adminPanel.css */
-.admin-panel {
+/* .admin {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+.admin_navigation {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+    height: 60px;
 
-.admin-panel h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+    margin: auto;
+    background-color: antiquewhite;
+    /* border-radius: 0 0 30px 30px; */
 
-.admin-panel form {
     display: flex;
-    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    column-gap: 20px;
+    text-decoration: none;
+    list-style: none;
+    
 }
 
-.admin-panel input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+.menu_bar {
+    background-color: aquamarine;
+    height: 60px;
+    width: 100px;
+
+    text-align: center;
+    line-height: 60px
 }
 
-.admin-panel button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-.admin-panel button:hover {
-    background-color: #0056b3;
+.add_new_product_button{
+    margin-top: 30px;
+    /* margin-bottom: 10px; */
+    width: 300px;
+    height: 70px;
+    background-color: #fff;
+    border-radius: 30px;
 }

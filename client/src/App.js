@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from './utils/scrollToTop';
 import Header from './components/header/header';
@@ -10,15 +10,18 @@ import AdminPanel from './pages/adminpanel';
 import Login from './pages/login';
 import AdminMenu from './components/adminmenu/adminmenu'; // Импорт AdminMenu
 import { BasketProvider } from './components/context/basketcontext';
+import { UserContext } from '../src/components/context/UseContext'; // Импортируем контекст пользователя
 import './style/common.css';
 import './style/reset.css';
 
 function App() {
+  const { user } = useContext(UserContext); // Получаем пользователя из контекста
+
   return (
     <div className="App">
       <BasketProvider>
         <Router>
-          <AdminMenu /> {/* Добавляем AdminMenu над header */}
+          {user?.isAdmin && <AdminMenu />} {/* Отображаем AdminMenu только для администратора */}
           <ScrollToTop />
           <Header />
           <Routes>

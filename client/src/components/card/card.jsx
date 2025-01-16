@@ -24,11 +24,11 @@ function Card(props) {
                             {props.title}
                         </div>
                     </NavLink>
-                    <div className="card_price">{props.price}</div>
+                    <div className="card_price">{props.price}$</div>
                     <div className="card_icon">
-                        <a href='#корзина' className='card_link_to_cart'>
+                        <div href='#корзина' className='card_link_to_cart'>
                             <img className='card_image_raiting' src={cardRaiting} alt="" />
-                        </a>
+                        </div>
                         <div className="card_raiting">Рейтинг {props.raiting}</div>
                     </div>
                     <button onClick={handleAddToBasket} className="add_to_basket_button">

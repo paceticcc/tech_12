@@ -1,39 +1,54 @@
 import './header.css';
-
 import { NavLink } from 'react-router-dom';
+import { useBasket } from '../../components/context/basketcontext';
+import { useContext } from 'react'; // Импортируем useContext
+import { UserContext } from '../context/UseContext'; // Импортируем контекст пользователя
 
-function Header () {
-    return <header className='header'>
-        <div className='container'>
-            <div className='header_row'>
-                <NavLink to="/" className='header_logo'>
-                    <span>QPICK</span>
-                </NavLink>
+function Header() {
+  const { showNewItemIndicator } = useBasket();
+  const { user, logoutUser } = useContext(UserContext); // Получаем пользователя и logoutUser из контекста
 
-                <div className='quick_search'>
-                        <div className='phone_icon'></div>
-                        <span>Выбрать модель телефона</span>
-                        <button className='quick_search__icon'></button>
-                </div>
+  return (
+    <header className='header'>
+      <div className='container'>
+        <div className='header_row'>
+          <NavLink to="/" className='header_logo'>
+            <span>QPICK</span>
+          </NavLink>
 
-                <nav className='header_nav'>
-                    <ul>
+          <div className='quick_search'>
+            <div className='phone_icon'></div>
+            <span>Выбрать модель телефона</span>
+            <button className='quick_search__icon'></button>
+          </div>
 
-                        {/* Переделать import изображений и присовить classname в navlink */}
-                        <NavLink to="/liked">
-                            <li><button className='like_cion'></button></li>
-                        </NavLink>
+          <nav className='header_nav'>
+            <ul>
+              <NavLink to="/login">
+                <li className='login_icon_size'>
+                  <button className='login_cion'></button>
+                  {user && (
+                    <div className="user_info">
+                      <span className="user_email">{user.email}</span>
+                      <button className="logout_button" onClick={logoutUser}>Выход</button>
+                    </div>
+                  )}
+                </li>
+              </NavLink>
 
-                        <NavLink to="/basket">
-                            <li><button className='cart_cion'></button></li>
-                        </NavLink>
-                    </ul>
-                </nav>
-
-            </div>
+              <NavLink className='basket' to="/basket">
+                <li>
+                  <button className='cart_cion'>
+                    {showNewItemIndicator && <span className="new_item_indicator">+</span>}
+                  </button>
+                </li>
+              </NavLink>
+            </ul>
+          </nav>
         </div>
+      </div>
     </header>
+  );
 }
-
 
 export default Header;
