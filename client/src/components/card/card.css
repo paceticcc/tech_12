@@ -93,20 +93,21 @@
     color: #FFA542;        
 }
 
-.card_link {
+/* .card_link {
 
-}
+} */
 
 .card_link:hover {
     opacity: 0.8;
+    background: #000;
 }
 
-.card_link_to_cart:hover {
+/* .card_link_to_cart:hover {
     width: 100px;
     height: 100px;
     background-color: #FFA542;
-    /* background-image: url("./../../img/icons/like_con.png"); */
-}
+    /* background-image: url("./../../img/icons/like_con.png"); 
+} */
 .card_image_raiting {
     background-repeat: no-repeat;
     background-size: cover;

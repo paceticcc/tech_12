@@ -1,83 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import Promo from './../components/promo/promo';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { UserContext } from '../components/context/UseContext';
 import { useBasket } from '../components/context/basketcontext';
 import '../components/context/basket.css';
 import { NavLink } from 'react-router-dom';
 import basketFree from '../img/banner/basket_free.png';
-import axios from 'axios'; // Импортируем axios
+import axios from 'axios';
+import buybutton from '../img/icons/buy.png'
+import deleteimg from '../img/icons/deleteimg.png'
 
 function Basket(props) {
-  const { basketItems } = useBasket();
-  const [products, setProducts] = useState([]); // Состояние для хранения данных о товарах
-  const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
-  const [error, setError] = useState(null); // Состояние для отслеживания ошибок
+    const { user } = useContext(UserContext);
+    const { clearNewItemIndicator, basketItems, removeFromBasket } = useBasket();
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  // Загрузка данных о товарах
-  useEffect(() => {
-    if (basketItems.length > 0) {
-      const productIds = basketItems.map(item => item.id); // Получаем массив ID товаров
+    // Функция для загрузки корзины
+    const fetchCartItems = useCallback(() => {
+        if (user && user.id) {
+            axios.get(`http://localhost:5000/api/cart/${user.id}`)
+                .then(response => {
+                    setCartItems(response.data);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Ошибка при загрузке корзины:', error);
+                    setError('Ошибка при загрузке корзины');
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
+        }
+    }, [user]);
 
-      axios.post('http://localhost:5000/api/products/by-ids', { ids: productIds })
-        .then(response => {
-          setProducts(response.data); // Устанавливаем данные о товарах
-          setLoading(false); // Загрузка завершена
-        })
-        .catch(error => {
-          console.error('Ошибка при загрузке данных:', error);
-          setError('Ошибка при загрузке данных'); // Устанавливаем ошибку
-          setLoading(false); // Загрузка завершена
-        });
-    } else {
-      setLoading(false); // Если корзина пуста, загрузка завершена
+    // Загружаем корзину при монтировании компонента и при изменении пользователя
+    useEffect(() => {
+        clearNewItemIndicator();
+        fetchCartItems();
+    }, [clearNewItemIndicator, fetchCartItems]);
+
+    if (loading) {
+        return <div>Загрузка...</div>;
     }
-  }, [basketItems]);
 
-  // Если данные загружаются
-  if (loading) {
-    return <div>Загрузка...</div>;
-  }
+    if (error) {
+        return <div>{error}</div>;
+    }
 
-  // Если произошла ошибка
-  if (error) {
-    return <div>{error}</div>;
-  }
+    const handleRemoveFromBasket = (cartId) => {
+        axios.delete(`http://localhost:5000/api/cart/${cartId}`)
+            .then(response => {
+                // Удаляем товар из локального состояния корзины
+                setCartItems(cartItems.filter(item => item.cartId !== cartId));
+                // Также удаляем товар из контекста корзины
+                if (typeof removeFromBasket === 'function') {
+                    removeFromBasket(cartId);
+                } else {
+                    console.error('removeFromBasket is not a function');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при удалении товара из корзины:', error);
+                alert('Не удалось удалить товар из корзины');
+            });
+    };
 
-  return (
-    <section>
-      {/* <Promo /> */}
-      <div className="container">
-        <div className="basket_field">
-          <h3 className='basket_title'>Корзина</h3>
+    return (
+        <section>
+            <div className="container">
+                <div className="basket_field">
+                    <h3 className='basket_title'>Корзина</h3>
 
-          {basketItems.length === 0 ? (
-            <div className="">
-              <img className='basketfree_img' src={basketFree} alt="Корзина пуста" />
-              <p className='basketfree_title'>Корзина пуста</p>
-              <p className='basketfree_subtitle'>Но это никогда не поздно исправить :)</p>
-              <NavLink to='/' className='basketfree_button'>В каталог товаров</NavLink>
-            </div>
-          ) : (
-            <ul className='basket_ul'>
-              {products.map(product => (
-                <div className='basket_ul_info' key={product.id}>
-                  <li className='basket_ul_info_position'>
-                    <h3>{product.title}</h3>
-                    <img src={`http://localhost:5000/${product.img}`} alt={product.title} />
-                    <div className='one'>Цена: {product.price}</div>
-                    <div className='two'>Рейтинг: {product.raiting}</div>
-                    <img className='buy_botton' src={`http://localhost:5000/${product.imgbuy}`} alt="Купить" />
-                  </li>
-                  <NavLink to={`/product/${product.id}`} className='go_to_product_info'>
-                    <div>Узнать больше о товаре</div>
-                  </NavLink>
+                    {cartItems.length === 0 ? (
+                        <div className="">
+                            <img className='basketfree_img' src={basketFree} alt="Корзина пуста" />
+                            <p className='basketfree_title'>Корзина пуста</p>
+                            <p className='basketfree_subtitle'>Но это никогда не поздно исправить :)</p>
+                            <NavLink to='/' className='basketfree_button'>В каталог товаров</NavLink>
+                        </div>
+                    ) : (
+                        <>
+                            <ul className='basket_ul'>
+                                {cartItems.map(item => (
+                                    <div className='basket_ul_info' key={item.cartId}>
+                                        <li className='basket_ul_info_position'>
+                                            <button onClick={() => handleRemoveFromBasket(item.cartId)} className='remove_button'>
+                                                 <img src={deleteimg} alt="X" />
+                                            </button>
+                                            <h3>{item.title}</h3>
+                                            <img className='img_basket' src={`http://localhost:5000/${item.img}`} alt={item.title} />
+                                            <div className="position">
+                                                <div className='one'>Цена: {item.price}$</div>
+                                                <div className='two'>Рейтинг: {item.raiting}</div>
+                                                <img className='buy_botton' src={buybutton} alt="Купить" />
+                                            </div>
+                                        </li>
+                                        <NavLink to={`/product/${item.id}`} className='go_to_product_info'>
+                                            <div>Узнать больше о товаре</div>
+                                        </NavLink>
+                                    </div>
+                                ))}
+                            </ul>
+                            {!user && (
+                                <div className="notification">
+                                    Для оформления заказа необходимо авторизоваться.
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-    </section>
-  );
+            </div>
+        </section>
+    );
 }
 
 export default Basket;

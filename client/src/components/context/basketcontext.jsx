@@ -1,16 +1,45 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const BasketContext = createContext();
 
 export const BasketProvider = ({ children }) => {
     const [basketItems, setBasketItems] = useState([]);
+    const [showNewItemIndicator, setShowNewItemIndicator] = useState(() => {
+        const savedIndicator = localStorage.getItem('showNewItemIndicator');
+        return savedIndicator === 'true';
+    });
+    const [indicatorSize, setIndicatorSize] = useState(1);
+
+    useEffect(() => {
+        localStorage.setItem('showNewItemIndicator', showNewItemIndicator);
+    }, [showNewItemIndicator]);
 
     const addToBasket = (item) => {
-        setBasketItems([...basketItems, item]);
+        // Проверяем, есть ли товар уже в корзине
+        const isItemInBasket = basketItems.some(basketItem => basketItem.id === item.id);
+
+        if (isItemInBasket) {
+            return false; // Товар уже в корзине, добавление запрещено
+        }
+
+        // Если товара нет в корзине, добавляем его
+        setBasketItems([...basketItems, { ...item, quantity: 1 }]);
+        setShowNewItemIndicator(true);
+        setIndicatorSize(prevSize => prevSize * 1.5);
+        return true;
+    };
+
+    const removeFromBasket = (itemId) => {
+        setBasketItems(basketItems.filter(item => item.id !== itemId)); // Удаляем товар из локального состояния
+    };
+
+    const clearNewItemIndicator = () => {
+        setShowNewItemIndicator(false);
+        setIndicatorSize(1);
     };
 
     return (
-        <BasketContext.Provider value={{ basketItems, addToBasket }}>
+        <BasketContext.Provider value={{ basketItems, addToBasket, removeFromBasket, showNewItemIndicator, clearNewItemIndicator, indicatorSize }}>
             {children}
         </BasketContext.Provider>
     );

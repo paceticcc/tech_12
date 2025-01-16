@@ -1,37 +1,50 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../components/adminpanel/adminpanel.css'
+import '../components/adminpanel/adminpanel.css';
+import AllProductsList from '../components/adminpanel/AllProductsList';
+import AddProductForm from '../components/adminpanel/AddProductForm'; // Импортируем компонент AddProductForm
 
 function AdminPanel() {
-    const [title, setTitle] = useState('');
-    const [price, setPrice] = useState('');
-    const [raiting, setRaiting] = useState('');
-    const [category, setCategory] = useState('');
+  const [activeTab, setActiveTab] = useState('Товары');
+  const [showAddProductForm, setShowAddProductForm] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post('http://localhost:5000/api/products', {
-                title,
-                price,
-                raiting,
-                category
-            });
-            alert('Product added');
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  const handleProductAdded = (newProduct) => {
+    // Здесь можно обновить список товаров, если это необходимо
+    console.log('Новый товар добавлен:', newProduct);
+  };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
-            <input type="text" placeholder="Price" value={price} onChange={e => setPrice(e.target.value)} />
-            <input type="text" placeholder="Raiting" value={raiting} onChange={e => setRaiting(e.target.value)} />
-            <input type="text" placeholder="Category" value={category} onChange={e => setCategory(e.target.value)} />
-            <button type="submit">Add Product</button>
-        </form>
-    );
+  return (
+    <div className="admin">
+      <div className="container">
+        <div className="admin_navigation">
+          <li
+            className={`menu_bar ${activeTab === 'Товары' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Товары')}
+          >
+            Товары
+          </li>
+          <li
+            className={`menu_bar ${activeTab === 'Пользователи' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Пользователи')}
+          >
+            Пользователи
+          </li>
+        </div>
+
+        {/* Отображаем контент в зависимости от активной вкладки */}
+        {activeTab === 'Товары' && (
+          <div>
+            <button className='add_new_product_button' onClick={() => setShowAddProductForm(!showAddProductForm)}>
+              {showAddProductForm ? 'Скрыть форму добавления товара' : 'Добавить новый товар'}
+            </button>
+            {showAddProductForm && <AddProductForm onProductAdded={handleProductAdded} />}
+            <AllProductsList />
+          </div>
+        )}
+        {activeTab === 'Пользователи' && <div>Пользователи</div>}
+      </div>
+    </div>
+  );
 }
 
 export default AdminPanel;
