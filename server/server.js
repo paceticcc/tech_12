@@ -22,7 +22,7 @@ app.use('/images', express.static('public/images'));
 const db = mysql.createConnection({
   host: 'localhost',     // Хост базы данных
   user: 'root',          // Имя пользователя MySQL
-  password: 'Rinaz9869991', // Пароль пользователя MySQL
+  password: '**********', // Пароль пользователя MySQL
   database: 'magazine'   // Название базы данных
 });
 
