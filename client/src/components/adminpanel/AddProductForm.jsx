@@ -3,13 +3,11 @@ import axios from 'axios';
 import './addproductform.css';
 
 function AddProductForm({ onProductAdded }) {
-  // Состояния для полей формы
+
   const [title, setTitle] = useState('');
   const [img, setImg] = useState('');
   const [price, setPrice] = useState('');
-  const [raiting, setRaiting] = useState('');
   const [category, setCategory] = useState('');
-  const [imgbuy, setImgbuy] = useState('');
   const [characteristic, setCharacteristic] = useState('');
 
   // Обработчик отправки формы
@@ -21,9 +19,7 @@ function AddProductForm({ onProductAdded }) {
       title,
       img,
       price: parseFloat(price),
-      raiting: raiting ? parseFloat(raiting) : null,
       category,
-      imgbuy,
       characteristic,
     };
 
@@ -36,9 +32,7 @@ function AddProductForm({ onProductAdded }) {
       setTitle('');
       setImg('');
       setPrice('');
-      setRaiting('');
       setCategory('');
-      setImgbuy('');
       setCharacteristic('');
     } catch (error) {
       console.error('Ошибка при добавлении товара:', error);
@@ -76,14 +70,6 @@ function AddProductForm({ onProductAdded }) {
         />
       </div>
       <div>
-        <input className='add_product_form_li'
-          type="number"
-          value={raiting}
-          onChange={(e) => setRaiting(e.target.value)}
-          placeholder="Рейтинг (опционально)"
-        />
-      </div>
-      <div>
         <select className='add_product_form_li'
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -96,13 +82,6 @@ function AddProductForm({ onProductAdded }) {
         </select>
       </div>
       <div>
-        {/* <input className='add_product_form_li'
-          type="text"
-          value={imgbuy}
-          onChange={(e) => setImgbuy(e.target.value)}
-          placeholder="Изображение для покупки (URL)"
-          required
-        /> */}
       </div>
       <div>
         <textarea className='add_product_form_li'

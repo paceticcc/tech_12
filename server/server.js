@@ -20,10 +20,10 @@ app.use('/images', express.static('public/images'));
 
 // Подключение к базе данных MySQL
 const db = mysql.createConnection({
-  host: 'localhost',     // Хост базы данных
-  user: 'root',          // Имя пользователя MySQL
-  password: '**********', // Пароль пользователя MySQL
-  database: 'magazine'   // Название базы данных
+  host: 'localhost',
+  user: 'root',
+  password: '**********',
+  database: 'magazine'
 });
 
 // Проверка подключения к базе данных
@@ -92,7 +92,12 @@ app.post('/api/products/by-ids', (req, res) => {
 // API для получения отзывов по ID товара
 app.get('/api/products/:id/reviews', (req, res) => {
   const productId = req.params.id;
-  const sql = 'SELECT * FROM reviews WHERE product_id = ?';
+  const sql = `
+    SELECT reviews.*, users.email 
+    FROM reviews 
+    JOIN users ON reviews.user_id = users.id 
+    WHERE product_id = ?
+  `;
 
   db.query(sql, [productId], (err, result) => {
     if (err) {
@@ -229,6 +234,7 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+//Для добавления в корзину
 app.post('/api/cart/add', (req, res) => {
     const { userId, productId } = req.body;
 
@@ -345,27 +351,6 @@ app.delete('/api/cart/:cartId', (req, res) => {
     });
   });
 });
-
-
-
-
-
-// app.get('/api/products/:id', (req, res) => {
-//   const productId = req.params.id;
-//   const sql = 'SELECT * FROM cards WHERE id = ?';
-//   db.query(sql, [productId], (err, result) => {
-//       if (err) {
-//           console.error('Ошибка при выполнении запроса:', err);
-//           res.status(500).send('Ошибка сервера');
-//       } else {
-//           if (result.length > 0) {
-//               res.json(result[0]);
-//           } else {
-//               res.status(404).send('Товар не найден');
-//           }
-//       }
-//   });
-// });
 
 
 

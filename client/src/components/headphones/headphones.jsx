@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './headphones.css';
 import Card from '../card/card';
-import axios from 'axios'; // Импортируем axios
+import axios from 'axios';
 
 function Headphones() {
   const [headphones, setHeadphones] = useState([]);
@@ -27,7 +27,7 @@ function Headphones() {
         </div>
         <div className="headphones_cards">
           {headphones.map(card => (
-            <Card key={card.id} id={card.id} title={card.title} img={card.img} price={card.price} raiting={card.raiting} />
+            <Card key={card.id} id={card.id} title={card.title} img={card.img} price={card.price} />
           ))}
         </div>
       </div>

@@ -19,10 +19,10 @@ export const BasketProvider = ({ children }) => {
         const isItemInBasket = basketItems.some(basketItem => basketItem.id === item.id);
 
         if (isItemInBasket) {
-            return false; // Товар уже в корзине, добавление запрещено
+            return false;
         }
 
-        // Если товара нет в корзине, добавляем его
+        // Если товара нет в корзине, тогда добавляем его
         setBasketItems([...basketItems, { ...item, quantity: 1 }]);
         setShowNewItemIndicator(true);
         setIndicatorSize(prevSize => prevSize * 1.5);

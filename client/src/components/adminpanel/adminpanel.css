@@ -22,12 +22,14 @@
 
 
 .menu_bar {
-    background-color: aquamarine;
+    background-color: #fff;
     height: 60px;
     width: 100px;
 
     text-align: center;
-    line-height: 60px
+    line-height: 60px;
+
+    margin-left: 20px;
 }
 
 

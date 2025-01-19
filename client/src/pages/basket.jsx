@@ -8,14 +8,14 @@ import axios from 'axios';
 import buybutton from '../img/icons/buy.png'
 import deleteimg from '../img/icons/deleteimg.png'
 
-function Basket(props) {
+function Basket() {
     const { user } = useContext(UserContext);
-    const { clearNewItemIndicator, basketItems, removeFromBasket } = useBasket();
+    const { clearNewItemIndicator, removeFromBasket } = useBasket();
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Функция для загрузки корзины
+    // Загрузки корзины
     const fetchCartItems = useCallback(() => {
         if (user && user.id) {
             axios.get(`http://localhost:5000/api/cart/${user.id}`)
@@ -33,7 +33,7 @@ function Basket(props) {
         }
     }, [user]);
 
-    // Загружаем корзину при монтировании компонента и при изменении пользователя
+    // Загружаем корзину при изменении пользователя
     useEffect(() => {
         clearNewItemIndicator();
         fetchCartItems();
@@ -52,7 +52,7 @@ function Basket(props) {
             .then(response => {
                 // Удаляем товар из локального состояния корзины
                 setCartItems(cartItems.filter(item => item.cartId !== cartId));
-                // Также удаляем товар из контекста корзины
+                // Удаляем товар из контекста корзины
                 if (typeof removeFromBasket === 'function') {
                     removeFromBasket(cartId);
                 } else {
@@ -91,7 +91,6 @@ function Basket(props) {
                                             <img className='img_basket' src={`http://localhost:5000/${item.img}`} alt={item.title} />
                                             <div className="position">
                                                 <div className='one'>Цена: {item.price}$</div>
-                                                <div className='two'>Рейтинг: {item.raiting}</div>
                                                 <img className='buy_botton' src={buybutton} alt="Купить" />
                                             </div>
                                         </li>

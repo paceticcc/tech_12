@@ -13,17 +13,17 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
-  // Функция для входа пользователя
+  // Вход
   const loginUser = (userData) => {
     const isAdmin = userData.email === 'admin1@gmail.com'; // Проверка на администратора
     setUser({ ...userData, isAdmin });
-    localStorage.setItem('user', JSON.stringify({ ...userData, isAdmin })); // Сохраняем пользователя в localStorage
+    localStorage.setItem('user', JSON.stringify({ ...userData, isAdmin }));
   };
 
-  // Функция для выхода пользователя
+  // Выход
   const logoutUser = () => {
     setUser(null);
-    localStorage.removeItem('user'); // Удаляем пользователя из localStorage
+    localStorage.removeItem('user');
   };
 
   return (

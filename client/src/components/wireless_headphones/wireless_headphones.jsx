@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './wireless_headphones.css';
 import Card from '../card/card';
-import axios from 'axios'; // Импортируем axios
+import axios from 'axios';
 
 function WirelessHeadphones() {
-  const [wirelessHeadphones, setWirelessHeadphones] = useState([]); // Состояние для хранения данных о беспроводных наушниках
+  const [wirelessHeadphones, setWirelessHeadphones] = useState([]);
 
   useEffect(() => {
     // Загрузка данных с сервера
@@ -17,7 +17,7 @@ function WirelessHeadphones() {
       .catch(error => {
         console.error('Ошибка при загрузке данных:', error);
       });
-  }, []); // Пустой массив зависимостей означает, что эффект выполнится только один раз при монтировании
+  }, []);
 
   return (
     <section className='wireless_headphones'>
@@ -33,7 +33,6 @@ function WirelessHeadphones() {
               title={card.title}
               img={card.img}
               price={card.price}
-              raiting={card.raiting}
             />
           ))}
         </div>

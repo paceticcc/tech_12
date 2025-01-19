@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './adminmenu.css'; // Импорт стилей
+import './adminmenu.css';
 
 function AdminMenu() {
   return (

@@ -2,47 +2,46 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../components/context/UseContext';
-import { useBasket } from '../components/context/basketcontext'; // Импортируем useBasket
+import { useBasket } from '../components/context/basketcontext';
 import '../style/product.css';
 import baskettake from '../img/icons/cart_icon.png';
 
 function Product() {
-    const { id } = useParams(); // Получаем ID товара из URL
-    const [product, setProduct] = useState(null); // Состояние для хранения данных о товаре
-    const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
-    const [error, setError] = useState(null); // Состояние для отслеживания ошибок
-    const [reviews, setReviews] = useState([]); // Состояние для хранения отзывов
-    const [newReview, setNewReview] = useState(''); // Состояние для нового отзыва
-    const [notification, setNotification] = useState(''); // Уведомление для пользователя
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [reviews, setReviews] = useState([]);
+    const [newReview, setNewReview] = useState('');
+    const [notification, setNotification] = useState('');
+    const [sortType, setSortType] = useState('newest');
 
-    const { user } = useContext(UserContext); // Получаем пользователя из контекста
-    const { basketItems, addToBasket } = useBasket(); // Убрали removeFromBasket
+    const { user } = useContext(UserContext);
+    const { addToBasket } = useBasket();
 
     // Загрузка данных о товаре и отзывах
     useEffect(() => {
-        // Загрузка данных о товаре
-        console.log(`Запрашиваем товар с ID: ${id}`); // Логируем ID товара
         axios.get(`http://localhost:5000/api/products/${id}`)
             .then((response) => {
-                setProduct(response.data); // Устанавливаем данные о товаре
-                setLoading(false); // Загрузка завершена
+                setProduct(response.data);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Ошибка при загрузке данных:', error);
-                setError('Товар не найден'); // Устанавливаем ошибку
-                setLoading(false); // Загрузка завершена
+                setError('Товар не найден');
+                setLoading(false);
             });
 
-        // Загрузка отзывов
         axios.get(`http://localhost:5000/api/products/${id}/reviews`)
             .then((response) => {
-                setReviews(response.data); // Устанавливаем отзывы
+                setReviews(response.data);
             })
             .catch((error) => {
                 console.error('Ошибка при загрузке отзывов:', error);
             });
     }, [id]);
 
+    // Добавление товара в корзину
     const handleAddToBasket = async () => {
         if (!user || !user.id) {
             setNotification('Для добавления товара в корзину необходимо авторизоваться');
@@ -51,17 +50,15 @@ function Product() {
             }, 3000);
             return;
         }
-    
+
         if (product) {
             try {
-                // Отправляем запрос на сервер для добавления товара в корзину
                 const response = await axios.post('http://localhost:5000/api/cart/add', {
                     userId: user.id,
                     productId: product.id,
                 });
-    
+
                 if (response.status === 201) {
-                    // Добавляем товар в локальное состояние корзины
                     addToBasket(product);
                     setNotification('Товар добавлен в корзину');
                 } else {
@@ -69,7 +66,6 @@ function Product() {
                 }
             } catch (error) {
                 if (error.response && error.response.status === 400) {
-                    // Если сервер вернул 400, это означает, что товар уже в корзине
                     setNotification('Товар уже в корзине');
                 } else {
                     console.error('Ошибка при добавлении товара в корзину:', error);
@@ -83,7 +79,7 @@ function Product() {
         }
     };
 
-    // Функция для добавления отзыва
+    // Добавление отзыва
     const handleAddReview = () => {
         if (!user || !user.id) {
             setNotification('Для добавления отзыва необходимо авторизоваться');
@@ -94,21 +90,36 @@ function Product() {
         }
 
         if (newReview.trim()) {
-            axios.post(`http://localhost:5000/api/products/${id}/reviews`, {
-                text: newReview,
-                userId: user.id
-            })
-            .then((response) => {
-                setReviews([...reviews, response.data]); // Добавляем новый отзыв в список
-                setNewReview(''); // Очищаем поле ввода
-            })
-            .catch((error) => {
-                console.error('Ошибка при отправке отзыва:', error);
-            });
+            axios
+                .post(`http://localhost:5000/api/products/${id}/reviews`, {
+                    text: newReview,
+                    userId: user.id,
+                })
+                .then((response) => {
+                    setReviews([...reviews, { ...response.data, email: user.email }]);
+                    setNewReview('');
+                })
+                .catch((error) => {
+                    console.error('Ошибка при отправке отзыва:', error);
+                });
         }
     };
 
-    // Если данные загружаются
+    // Сортировака отзывов
+    const sortReviews = (reviews, type) => {
+        switch (type) {
+            case 'newest':
+                return [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
+            case 'oldest':
+                return [...reviews].sort((a, b) => new Date(a.date) - new Date(b.date));
+            default:
+                return reviews;
+        }
+    };
+
+    // Отсортированные отзывы
+    const sortedReviews = sortReviews(reviews, sortType);
+
     if (loading) {
         return <div>Загрузка...</div>;
     }
@@ -136,7 +147,6 @@ function Product() {
                         <div className="product_info">
                             <div className="product_info_poisition">
                                 <div className='product_price'>Цена: {product.price}$</div>
-                                <div>Рейтинг: {product.raiting}</div>
                                 <div>Характеристика: {product.characteristic}</div>
                                 <div className="card_full_notofication">
                                     <button onClick={handleAddToBasket} className="add_to_basket_button">
@@ -162,11 +172,24 @@ function Product() {
                         </div>
                     </div>
                     <div className="pepole_comment">
-                        <div className="people_comment_block">Отзывы других покупателей</div>
-                        {reviews.map((review, index) => (
+                        <div className="people_comment_block">
+                            Отзывы других покупателей
+                            <select
+                                value={sortType}
+                                onChange={(e) => setSortType(e.target.value)}
+                                className="sort_select"
+                            >
+                                <option value="newest">Сначала новые</option>
+                                <option value="oldest">Сначала старые</option>
+                            </select>
+                        </div>
+                        {sortedReviews.map((review, index) => (
                             <div className='people_comment_other' key={index}>
-                                <p>{review.text}</p>
-                                <small>{new Date(review.date).toLocaleDateString()}</small>
+                                <p className='email_date_box'>
+                                    <p className='email_box_size'> {review.email} </p>
+                                    <p className='date_margin'> {new Date(review.date).toLocaleDateString()}</p>
+                                </p>
+                                <p className='review_text'>{review.text}</p>
                             </div>
                         ))}
                         <div className="comment_end_effect"></div>
