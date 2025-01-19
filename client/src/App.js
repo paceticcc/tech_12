@@ -8,14 +8,14 @@ import Basket from './pages/basket';
 import Product from './pages/product';
 import AdminPanel from './pages/adminpanel';
 import Login from './pages/login';
-import AdminMenu from './components/adminmenu/adminmenu'; // Импорт AdminMenu
+import AdminMenu from './components/adminmenu/adminmenu';
 import { BasketProvider } from './components/context/basketcontext';
-import { UserContext } from '../src/components/context/UseContext'; // Импортируем контекст пользователя
+import { UserContext } from '../src/components/context/UseContext';
 import './style/common.css';
 import './style/reset.css';
 
 function App() {
-  const { user } = useContext(UserContext); // Получаем пользователя из контекста
+  const { user } = useContext(UserContext);
 
   return (
     <div className="App">
