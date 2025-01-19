@@ -7,24 +7,23 @@ function ProductItem({
   title,
   img,
   price,
-  raiting,
   category,
   imgbuy,
   characteristic,
   onUpdate,
-  onDelete, // Добавляем колбэк для удаления
+  onDelete,
 }) {
+
   // Состояния для редактирования полей
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedImg, setEditedImg] = useState(img);
   const [editedPrice, setEditedPrice] = useState(price);
-  const [editedRaiting, setEditedRaiting] = useState(raiting);
   const [editedCategory, setEditedCategory] = useState(category);
   const [editedImgbuy, setEditedImgbuy] = useState(imgbuy);
   const [editedCharacteristic, setEditedCharacteristic] = useState(characteristic);
 
-  // Переключение в режим редактирования
+  // В режим редактирования
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -37,7 +36,6 @@ function ProductItem({
         title: editedTitle,
         img: editedImg,
         price: editedPrice,
-        raiting: editedRaiting,
         category: editedCategory,
         imgbuy: editedImgbuy,
         characteristic: editedCharacteristic,
@@ -64,11 +62,10 @@ function ProductItem({
   // Отмена редактирования
   const handleCancel = () => {
     setIsEditing(false);
-    // Сбрасываем значения к исходным
+
     setEditedTitle(title);
     setEditedImg(img);
     setEditedPrice(price);
-    setEditedRaiting(raiting);
     setEditedCategory(category);
     setEditedImgbuy(imgbuy);
     setEditedCharacteristic(characteristic);
@@ -121,13 +118,6 @@ function ProductItem({
                 className="edit-input"
               />
               <input
-                type="number"
-                value={editedRaiting}
-                onChange={(e) => setEditedRaiting(e.target.value)}
-                placeholder="Рейтинг"
-                className="edit-input"
-              />
-              <input
                 type="text"
                 value={editedCategory}
                 onChange={(e) => setEditedCategory(e.target.value)}
@@ -154,7 +144,6 @@ function ProductItem({
             <>
               <h3 className="product_item_title">Название: {title}</h3>
               <p className="product-item-price">Цена: {price}$</p>
-              <p className="product-item-raiting">Рейтинг: {raiting}</p>
               <p className="product_item_category">Категория: {category}</p>
               <p className="product-item-characteristic">Характеристика: {characteristic}</p>
             </>

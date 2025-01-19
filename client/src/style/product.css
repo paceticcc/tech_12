@@ -74,7 +74,7 @@
     margin-bottom: 20px;
     background-color: #FFFFFF;
     width: 500px;
-    height: 600px;
+    height: 550px;
     border-radius: 30px;
 }
 /* .product_price {
@@ -209,11 +209,11 @@
     background-color: antiquewhite;
     opacity: 0.8;
     width: 770px;
-    height: 70px;
+    /* height: 70px; */
 
     display: flex;
     justify-content: space-between;
-    column-gap: 10px;
+    column-gap: 20px;
     line-height: 70px;
     padding-left: 20px;
     padding-right: 20px;
@@ -223,10 +223,34 @@
     font-family: Montserrat;
     font-size: 15px;
     color: #000;
+
+    flex-wrap: wrap;
+}
+.data_margin {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 }
 /* .people_comment_other:last-child{
     padding-bottom: 30px;
 } */
 .comment_end_effect {
     height: 60px;
+}
+.sort_select {
+    margin-top: 20px;
+    /* text-decoration: underline; */
+    /* background-color: #838383; */
+}
+.email_box_size{
+    width: 150px;
+}
+.email_date_box {
+    display: flex;
+    column-gap: 20px;
+}
+.review_text {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }

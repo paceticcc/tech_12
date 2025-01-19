@@ -39,3 +39,16 @@
     margin-top: 30px;
 }
 
+.all_products_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search_window {
+    background-color: #fff;
+    border-radius: 30px;
+    margin-top: 30px;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+}

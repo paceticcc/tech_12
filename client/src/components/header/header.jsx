@@ -1,8 +1,8 @@
 import './header.css';
 import { NavLink } from 'react-router-dom';
 import { useBasket } from '../../components/context/basketcontext';
-import { useContext } from 'react'; // Импортируем useContext
-import { UserContext } from '../context/UseContext'; // Импортируем контекст пользователя
+import { useContext } from 'react';
+import { UserContext } from '../context/UseContext';
 
 function Header() {
   const { showNewItemIndicator } = useBasket();

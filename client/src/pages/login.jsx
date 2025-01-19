@@ -20,7 +20,7 @@ function Login() {
         e.preventDefault();
 
         if (isSignUp) {
-            // Логика регистрации
+            // Регистрация
             if (!email || !password || !repeatPassword) {
                 setLoginMessage('Поля не могут быть пустыми');
                 return;
@@ -52,7 +52,7 @@ function Login() {
                 setLoginMessage('Ошибка при регистрации');
             }
         } else {
-            // Логика входа
+            // Авторизация
             if (!email || !password) {
                 setLoginMessage('Поля не могут быть пустыми');
                 return;

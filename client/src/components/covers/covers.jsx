@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../card/card';
 import './covers.css';
-import axios from 'axios'; // Импортируем axios
+import axios from 'axios';
 
 function Covers() {
-  const [covers, setCovers] = useState([]); // Состояние для хранения данных о чехлах
+  const [covers, setCovers] = useState([]);
 
   useEffect(() => {
     // Загрузка данных с сервера
@@ -17,7 +17,7 @@ function Covers() {
       .catch(error => {
         console.error('Ошибка при загрузке данных:', error);
       });
-  }, []); // Пустой массив зависимостей означает, что эффект выполнится только один раз при монтировании
+  }, []);
 
   return (
     <section className='covers'>
@@ -33,7 +33,6 @@ function Covers() {
               title={card.title}
               img={card.img}
               price={card.price}
-              raiting={card.raiting}
             />
           ))}
         </div>
